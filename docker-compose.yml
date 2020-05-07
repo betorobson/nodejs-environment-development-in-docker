@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  test-windows:
+    image: test-windows
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3001:3001
+      - 5850:5850
+    command: npm run dev:container:debug

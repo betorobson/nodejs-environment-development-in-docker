@@ -1,0 +1,25 @@
+{
+	"name": "nodejs-environment-development-in-docker",
+	"version": "0.1.0",
+	"description": "",
+	"engines": {
+		"node": ">=12.10.0"
+	},
+	"main": "index.js",
+	"scripts": {
+		"start": "node ./index.js",
+		"dev:container": "docker-compose up",
+		"dev:container:debug": "nodemon --inspect=0.0.0.0:5850 ./index.js | pino-pretty"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"nodemon": "^2.0.2",
+		"pino-pretty": "^4.0.0"
+	},
+	"dependencies": {
+		"express": "^4.17.1",
+		"pino-http": "^5.1.0",
+		"uuid": "^7.0.2"
+	}
+}

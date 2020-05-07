@@ -1,0 +1,28 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+      "type": "node",
+      "request": "launch",
+      "timeout": 300000,
+      "name": "My NodeJS : Launch in Docker",
+			"console": "externalTerminal",
+      "protocol": "auto",
+			"runtimeExecutable": "docker-compose",
+			"runtimeArgs": [ "up" ],
+      "port": 5850,
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/usr/src/app",
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js",
+      ]
+		}
+	]
+}
