@@ -9,7 +9,7 @@
 	"scripts": {
 		"start": "node ./index.js",
 		"dev:container": "docker-compose up",
-		"dev:container:debug": "nodemon --inspect=0.0.0.0:5850 ./index.js | pino-pretty"
+		"dev:container:debug": "nodemon --inspect=0.0.0.0:5850 ./index.js"
 	},
 	"author": "",
 	"license": "ISC",

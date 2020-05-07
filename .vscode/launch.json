@@ -6,17 +6,45 @@
 	"configurations": [
 		{
       "type": "node",
-      "request": "launch",
-      "timeout": 300000,
-      "name": "My NodeJS : Launch in Docker",
-			"console": "externalTerminal",
-      "protocol": "auto",
-			"runtimeExecutable": "docker-compose",
-			"runtimeArgs": [ "up" ],
+      "request": "attach",
+      "timeout": 60000,
+      "name": "My NodeJS : Attach to Docker",
+      // "preLaunchTask": "docker-compose-up",
+			// "console": "externalTerminal",
+      // "protocol": "inspector",
+			// "runtimeExecutable": "npm",
+			// "runtimeArgs": [ "run", "dev:container" ],
+      // "address": "localhost",
       "port": 5850,
+      // "port": 9229,
+      // "cwd": "${workspaceFolder}",
       "restart": true,
       "localRoot": "${workspaceFolder}",
       "remoteRoot": "/usr/src/app",
+      "outFiles": [
+        "${workspaceFolder}/**/*.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**/*.js",
+      ]
+		},
+		{
+      "type": "node",
+      "request": "launch",
+      "timeout": 60000,
+      "name": "My NodeJS : Launch in Docker",
+			"console": "integratedTerminal",
+      "protocol": "inspector",
+			"runtimeExecutable": "npm",
+			"runtimeArgs": [ "run", "dev:container" ],
+      // "address": "localhost",
+      "port": 5850,
+      // "port": 9229,
+      // "cwd": "${workspaceFolder}",
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/usr/src/app",
+      "autoAttachChildProcesses": true,
       "outFiles": [
         "${workspaceFolder}/**/*.js"
       ],
