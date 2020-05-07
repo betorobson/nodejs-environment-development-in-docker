@@ -7,6 +7,13 @@ Enforce everyone working in the same development environment, preventing any mis
  - Docker, for sure
  - NodeJS? just if you like it
  - VSCode!
+ 
+## I do not have VSCode, it will work?
+Yeah, for sure it will work however, debugger breakpoints no!
+So, just run in terminal.
+```
+$ docker-compose up
+```
 
 ## How to test it?
  - Clone this project
