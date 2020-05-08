@@ -10,4 +10,4 @@ services:
     ports:
       - 3001:3001
       - 5850:5850
-    command: npm run dev:container:debug
+    command: npm run dev
