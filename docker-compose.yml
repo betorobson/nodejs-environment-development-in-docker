@@ -11,4 +11,3 @@ services:
       - 3001:3001
       - 5850:5850
     command: npm run dev:container:debug
-    # command: ./node_modules/.bin/nodemon --inspect=0.0.0.0:5850 ./index.js | pino-pretty

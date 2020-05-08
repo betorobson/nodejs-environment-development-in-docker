@@ -26,7 +26,7 @@ app.use(
 					if(result == 1){
 						resolve('it works 1');
 					}else{
-						reject(new Error('it fails 1asd'));
+						reject(new Error('it fails 1'));
 					}
 				}
 			);

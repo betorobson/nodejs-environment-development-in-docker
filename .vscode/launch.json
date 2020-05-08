@@ -5,52 +5,53 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-      "type": "node",
-      "request": "attach",
-      "timeout": 60000,
-      "name": "My NodeJS : Attach to Docker",
-      // "preLaunchTask": "docker-compose-up",
+			"type": "node",
+			"request": "attach",
+			"timeout": 5000,
+			"name": "My NodeJS : Attach to Docker",
+			// "preLaunchTask": "docker-compose-up",
 			// "console": "externalTerminal",
-      // "protocol": "inspector",
+			// "protocol": "inspector",
 			// "runtimeExecutable": "npm",
 			// "runtimeArgs": [ "run", "dev:container" ],
-      // "address": "localhost",
-      "port": 5850,
-      // "port": 9229,
-      // "cwd": "${workspaceFolder}",
-      "restart": true,
-      "localRoot": "${workspaceFolder}",
-      "remoteRoot": "/usr/src/app",
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ],
-      "skipFiles": [
-        "<node_internals>/**/*.js",
-      ]
+			// "address": "localhost",
+			"port": 5850,
+			// "port": 9229,
+			// "cwd": "${workspaceFolder}",
+			"restart": true,
+			"localRoot": "${workspaceFolder}",
+			"remoteRoot": "/usr/src/app",
+			"outFiles": [
+				"${workspaceFolder}/**/*.js"
+			],
+			"skipFiles": [
+				"<node_internals>/**/*.js",
+			]
 		},
 		{
-      "type": "node",
-      "request": "launch",
-      "timeout": 60000,
-      "name": "My NodeJS : Launch in Docker",
+			"type": "node",
+			"request": "launch",
+			"timeout": 30000,
+			"name": "My NodeJS : Launch in Docker",
+			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal",
-      "protocol": "inspector",
+			"protocol": "inspector",
 			"runtimeExecutable": "npm",
-			"runtimeArgs": [ "run", "dev:container" ],
-      // "address": "localhost",
-      "port": 5850,
-      // "port": 9229,
-      // "cwd": "${workspaceFolder}",
-      "restart": true,
-      "localRoot": "${workspaceFolder}",
-      "remoteRoot": "/usr/src/app",
-      "autoAttachChildProcesses": true,
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ],
-      "skipFiles": [
-        "<node_internals>/**/*.js",
-      ]
+			"runtimeArgs": [ "run-script", "dev:container" ],
+			// "address": "localhost",
+			"address": "127.0.0.1",
+			"port": 5850,
+			// "port": 9229,
+			// "cwd": "${workspaceFolder}",
+			"restart": true,
+			"localRoot": "${workspaceFolder}",
+			"remoteRoot": "/usr/src/app",
+			// "outFiles": [
+			//   "${workspaceFolder}/**/*.js"
+			// ],
+			// "skipFiles": [
+			//   "<node_internals>/**/*.js",
+			// ]
 		}
 	]
 }
