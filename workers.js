@@ -11,7 +11,6 @@ let startNewWorker = attrs => {
 		}
 
 		const worker = new Worker(
-			// __filename,
 			__dirname + '/' + attrs.file,
 			{workerData: attrs.data || {}}
 		);
