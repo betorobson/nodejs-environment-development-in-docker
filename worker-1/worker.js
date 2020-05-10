@@ -23,26 +23,22 @@ let run = () => {
 		workerPromises.push(
 			new Promise((resolve, reject) => {
 
-				let x = 0;
-				let string = 'x';
+			let current = new Date();
+			let stopAt = new Date();
+			stopAt.setSeconds(stopAt.getSeconds() + 10);
+			let stopAtTimestamp = stopAt.getTime();
 
-				for(let i=0; i<10000; i++){
-					// console.log('--->', i);
-					x++;
-					for(let j=0; j<100; j++){
-						// console.log('-------->',j);
-						x++
-						string+='x';
-					}
-				}
+			while(new Date().getTime() < stopAtTimestamp){
+				let any = new Date().getTime();
+			}
 
-				resolve({
-					version: jsonPack.version,
-					workerData: workerData,
-					message: ' from worker.postMessage',
-					x: x,
-					string: string.length
-				});
+			resolve({
+				version: jsonPack.version,
+				workerData: workerData,
+				message: ' from worker.postMessage',
+				start: current,
+				stop: stopAt
+			});
 
 			})
 		);

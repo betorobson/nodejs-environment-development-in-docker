@@ -112,12 +112,6 @@ app.use(
 
 // };
 
-let workerExec = () => {
-	return function(){
-		return 'from workerExec';
-	};
-};
-
 app.use(
 	router.get(
 		'/test1/:totalworkers?',
@@ -244,6 +238,30 @@ app.use(
 					message: error.message,
 					stack: error.stack.split('\n')
 				}));
+
+		}
+	)
+);
+
+app.use(
+	router.get(
+		'/block-event-loop',
+		(req, res, next) => {
+
+			let current = new Date();
+			let stopAt = new Date();
+			stopAt.setSeconds(stopAt.getSeconds() + 10);
+			let stopAtTimestamp = stopAt.getTime();
+
+			while(new Date().getTime() < stopAtTimestamp){
+				let any = new Date().getTime();
+			}
+
+			res.json({
+				message: 'ok it blocks the event loop',
+				start: current,
+				stop: stopAt
+			});
 
 		}
 	)
