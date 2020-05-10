@@ -1,12 +1,13 @@
-const { Worker, parentPort } = require('worker_threads');
+// const { Worker, parentPort } = require('worker_threads');
 const express = require('express');
+const axios = require('axios');
 const router = express.Router();
 const logger = require('pino')();
 const pinoHttp = require('pino-http')({
 	logger: logger
 });
 
-const myWorkers = require('./worker2');
+const { startNewWorker } = require('./workers');
 
 const app = express();
 
@@ -67,8 +68,8 @@ app.use(
 									]
 								)
 						)
-					))
-			}
+					));
+			};
 
 			let responseResults = results => res.json(results);
 
@@ -128,7 +129,12 @@ app.use(
 				totalWorkers = 5;
 			}
 
-			let worker = myWorkers.getNewWorker({totalWorkers: totalWorkers});
+			let worker = startNewWorker({
+				file: '/worker-1/worker.js',
+				data: {
+					totalWorkers: totalWorkers
+				}
+			});
 
 			worker
 				.then(result => res.json(result))
@@ -171,9 +177,68 @@ app.use(
 		'/test2',
 		(req, res, next) => {
 
-			let worker = myWorkers.getNewWorker({totalWorkers: 2});
+			let worker = startNewWorker({
+				file: '/worker-1/worker.js',
+				data: {
+					totalWorkers: 2
+				}
+			});
 
 			worker
+				.then(result => res.json(result))
+				.catch(error => res.status(500).json({
+					message: error.message,
+					stack: error.stack.split('\n')
+				}));
+
+		}
+	)
+);
+
+app.use(
+	router.get(
+		'/test3',
+		(req, res, next) => {
+
+			axios({
+				method: 'get',
+				url: 'http://app2slow:3002/',
+			})
+				.then(function (response) {
+					res.json(response.data);
+				})
+				.catch(error => res.status(500).json(error));
+
+		}
+	)
+);
+
+app.use(
+	router.get(
+		'/test4',
+		(req, res, next) => {
+
+			let workerA = startNewWorker({
+				file: '/worker-1/worker.js',
+				data: {
+					totalWorkers: 2
+				}
+			});
+
+			let workerB = startNewWorker({
+				file: '/worker-2/worker.js',
+				data: {
+					somedata: {
+						a:1,
+						b:2
+					}
+				}
+			});
+
+			Promise.all([
+				workerA,
+				workerB
+			])
 				.then(result => res.json(result))
 				.catch(error => res.status(500).json({
 					message: error.message,

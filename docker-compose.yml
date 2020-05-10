@@ -11,3 +11,13 @@ services:
       - 3001:3001
       - 5850:5850
     command: npm run dev
+
+  app2slow:
+    image: nodejs-env-dev-in-docker-app2slow
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 3002:3002
+    command: node index2.js
