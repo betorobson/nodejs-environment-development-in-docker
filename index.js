@@ -248,6 +248,19 @@ app.use(
 		'/block-event-loop',
 		(req, res, next) => {
 
+			// let x = 0;
+			// let string = '';
+			// for(let i=0; i<1000; i++){
+			// 	// console.log('--->', i);
+			// 	x++;
+			// 	for(let j=0; j<50; j++){
+			// 		console.log('-------->', x);
+			// 		// logger.info('--------> ' + x);
+			// 		x++
+			// 		string+='x';
+			// 	}
+			// }
+
 			let current = new Date();
 			let stopAt = new Date();
 			stopAt.setSeconds(stopAt.getSeconds() + 10);
@@ -262,6 +275,7 @@ app.use(
 				start: current,
 				stop: stopAt
 			});
+
 
 		}
 	)
