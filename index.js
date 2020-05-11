@@ -8,6 +8,7 @@ const pinoHttp = require('pino-http')({
 });
 
 const { startNewWorker } = require('./workers');
+const { holdRequest } = require('./hold-request');
 
 const app = express();
 
@@ -173,9 +174,7 @@ app.use(
 
 			let worker = startNewWorker({
 				file: '/worker-1/worker.js',
-				data: {
-					totalWorkers: 2
-				}
+				data: {}
 			});
 
 			worker
@@ -245,36 +244,57 @@ app.use(
 
 app.use(
 	router.get(
-		'/block-event-loop',
+		'/no-block-event-loop/:seconds?',
 		(req, res, next) => {
 
-			// let x = 0;
-			// let string = '';
-			// for(let i=0; i<1000; i++){
-			// 	// console.log('--->', i);
-			// 	x++;
-			// 	for(let j=0; j<50; j++){
-			// 		console.log('-------->', x);
-			// 		// logger.info('--------> ' + x);
-			// 		x++
-			// 		string+='x';
-			// 	}
-			// }
+			let seconds = isNaN(req.params.seconds)
+				? 5
+				: req.params.seconds
+			;
 
-			let current = new Date();
-			let stopAt = new Date();
-			stopAt.setSeconds(stopAt.getSeconds() + 10);
-			let stopAtTimestamp = stopAt.getTime();
+			startNewWorker({
+				file: '/hold-request/worker.js',
+				data: {
+					seconds: parseInt(seconds)
+				}
+			})
+				.then(result => res.json(
+					Object.assign(
+						{
+							message: 'ok it does not block the event loop'
+						},
+						result
+					)
+				))
+				.catch(error => res.status(500).json({
+					message: error.message,
+					stack: error.stack.split('\n')
+				}));
 
-			while(new Date().getTime() < stopAtTimestamp){
-				let any = new Date().getTime();
-			}
+		}
+	)
+);
 
-			res.json({
-				message: 'ok it blocks the event loop',
-				start: current,
-				stop: stopAt
-			});
+app.use(
+	router.get(
+		'/block-event-loop/:seconds?',
+		(req, res, next) => {
+
+			let seconds = isNaN(req.params.seconds)
+				? 5
+				: req.params.seconds
+			;
+
+			let result = holdRequest(parseInt(seconds));
+
+			res.json(
+				Object.assign(
+					{
+						message: 'ok it blocks the event loop'
+					},
+					result
+				)
+			);
 
 
 		}
