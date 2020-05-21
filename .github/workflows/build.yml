@@ -40,4 +40,4 @@ jobs:
     - name: Get version number
       run: |
         export APP_VERSION=$(node app-version.js)
-				echo $APP_VERSION
+        echo $APP_VERSION
