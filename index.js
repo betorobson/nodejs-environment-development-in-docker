@@ -16,7 +16,7 @@ const app = express();
 app.listen(3001);
 
 logger.info(`
-	test label 6
+	test label 7
 	All good 🕺
 	Running on port 3001
 `);
