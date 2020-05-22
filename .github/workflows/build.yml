@@ -3,7 +3,7 @@ name: develop
 on:
   push:
     branches:
-      - rr/ci-workflow
+      - master
     paths-ignore:
       - 'package.json'
       - 'package-lock.json'
@@ -17,6 +17,11 @@ jobs:
 
     steps:
 
+    # How to create a TOKEN_ACTION
+    # 1. Create a personal access token called GITHUB_TOKEN_ACTION with admin repo access
+    # 2. Copy generated key
+    # 3. In your repo create a secret key call TOKEN_ACTION
+    # 4. Paste the GITHUB_TOKEN_ACTION key
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.TOKEN_ACTION }}
@@ -57,3 +62,32 @@ jobs:
       run: |
         export APP_VERSION=$(node app-version.js)
         echo $APP_VERSION
+
+    # - name: Login to Amazon ECR
+    #   id: login-ecr
+    #   uses: aws-actions/amazon-ecr-login@v1
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     AWS_REGION: eu-west-1
+
+    # - name: Build, tag, and push image to Amazon ECR
+    #   env:
+    #     ECR_REGISTRY: xyz.amazonaws.com
+    #     ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+    #     IMAGE_TAG: latest
+    #   run: |
+    #     export APP_VERSION=$(node app-version.js)
+    #     export COMMIT_SHA8=$(git rev-parse --short HEAD)
+    #     docker build \
+    #     -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+    #     -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG.$APP_VERSION \
+    #     -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG.sha.$COMMIT_SHA8 \
+    #     .
+    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY.$APP_VERSION
+    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG.sha.$COMMIT_SHA8
+
+    # - name: Logout of Amazon ECR
+    #   if: always()
+    #   run: docker logout ${{ steps.login-ecr.outputs.registry }}
