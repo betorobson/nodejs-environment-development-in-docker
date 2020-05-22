@@ -24,4 +24,4 @@ So, just run in terminal.
 ```
 $ docker-compose up
 ```
-1
+2
