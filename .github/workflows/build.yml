@@ -35,7 +35,7 @@ jobs:
       run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
 
     - name: Bump Major Version
-      if: " contains(steps.log.outputs.message, '/major/') "
+      if: " contains(steps.log.outputs.message, '/bump:major/') "
       env:
         GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
       run: |
@@ -43,7 +43,7 @@ jobs:
         git push
 
     - name: Bump Minor Version
-      if: " ! contains(steps.log.outputs.message, '/major/') && ! contains(steps.log.outputs.message, '/patch/') "
+      if: " ! contains(steps.log.outputs.message, '/bump:major/') && ! contains(steps.log.outputs.message, '/bump:patch/') "
       env:
         GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
       run: |
@@ -51,7 +51,7 @@ jobs:
         git push
 
     - name: Bump Patch Version
-      if: " contains(steps.log.outputs.message, '/patch/') "
+      if: " contains(steps.log.outputs.message, '/bump:patch/') "
       env:
         GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
       run: |
