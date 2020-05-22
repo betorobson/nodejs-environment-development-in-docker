@@ -11,6 +11,8 @@ jobs:
 
   build:
 
+    if: github.event.action != 'labeled'
+
     runs-on: ubuntu-latest
 
     steps:
