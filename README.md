@@ -32,3 +32,5 @@ $ docker-compose up
 
 ## Skipping bild workflow, Branch prefix name or commit message
  - skiping Build with [/skip/build/]: `user/skip/build/any-name-here`
+
+test build
