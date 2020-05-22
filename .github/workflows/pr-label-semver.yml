@@ -1,0 +1,44 @@
+name: develop
+
+on:
+  push:
+    branches:
+      - rr/ci-workflow
+  pull_request:
+    types:
+      - labeled
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN_ACTION }}
+
+    - name: Setup GIT
+      run: |
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git config user.name "$GITHUB_ACTOR"
+
+    - id: log
+      run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+
+    - name: Bump Minor Version
+      if: github.event.label.name == 'minor'
+      env:
+        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
+      run: |
+        git commit -m ':minor:'
+        git push
+
+    - name: Bump Patch Version
+      if: contains(steps.log.outputs.message, ':patch:')
+      env:
+        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
+      run: |
+        git commit -m ':patch:'
+        git push
