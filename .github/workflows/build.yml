@@ -11,8 +11,6 @@ jobs:
 
   build:
 
-    if: github.event.action == 'labeled'
-
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +24,23 @@ jobs:
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
         git config user.name "$GITHUB_ACTOR"
 
+    - id: log
+      run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+
     - name: Bump Minor Version
+      if: contains(steps.log.outputs.message, ':minor:')
       env:
         GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
       run: |
         npm version minor -m "Bump version to %s"
+        git push
+
+    - name: Bump Patch Version
+      if: contains(steps.log.outputs.message, ':patch:')
+      env:
+        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
+      run: |
+        npm version patch -m "Bump version to %s"
         git push
 
     - name: Get version number
