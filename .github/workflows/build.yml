@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - rr/ci-workflow
-
+    paths-ignore:
+      - 'package.json'
+      - 'package-lock.json'
 jobs:
 
   build:
@@ -14,6 +16,8 @@ jobs:
     steps:
 
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN_ACTION }}
 
     - name: Setup GIT
       run: |
@@ -22,7 +26,7 @@ jobs:
 
     - name: Bump Minor Version
       env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
       run: |
         npm version minor -m "Bump version to %s"
         git push
