@@ -31,4 +31,4 @@ $ docker-compose up
  - Patch version [/bump/patch/]: `user/bump/patch/any-patch-name-here`
 
 ## Skipping bild workflow, Branch prefix name or commit message
- - [/skip/build/]: `user/skip/build/any-name-here`
+ - skiping Build with [/skip/build/]: `user/skip/build/any-name-here`
