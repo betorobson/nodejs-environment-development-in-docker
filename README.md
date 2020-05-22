@@ -24,4 +24,3 @@ So, just run in terminal.
 ```
 $ docker-compose up
 ```
-test build 005
