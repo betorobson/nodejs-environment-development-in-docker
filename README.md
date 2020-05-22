@@ -24,3 +24,13 @@ So, just run in terminal.
 ```
 $ docker-compose up
 ```
+
+## Branch prefix names for build workflow with bump version
+ - Major version [/bump/major/]: `user/bump/major/any-feature-name-here`
+ - Minor version (default): It does not need a prefix `user/any-feature-name-here`
+ - Patch version [/bump/patch/]: `user/bump/patch/any-patch-name-here`
+
+## Skipping bild workflow, Branch prefix name or commit message
+ - skiping Build with [/skip/build/]: `user/skip/build/any-name-here`
+
+test build 5
