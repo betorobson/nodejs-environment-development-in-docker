@@ -4,11 +4,11 @@ on:
   pull_request:
     branches:
       - master
-    types:
-      - opened
-    paths-ignore:
-      - 'package.json'
-      - 'package-lock.json'
+    # types:
+    #   - opened
+    # paths-ignore:
+    #   - 'package.json'
+    #   - 'package-lock.json'
   # push:
   #   branches:
   #     - develop
@@ -58,10 +58,19 @@ jobs:
 
     - name: Bump Minor Version
       run: |
-        git fetch
-        git checkout ${{ github.base_ref }}
-        npm version minor -m "Bump version %s"
-        git push origin ${{ github.base_ref }}
+        echo ${{ github.base_ref }}
+        echo ${{ github.head_ref }}
+        echo ${{ github.ref }}
+      # run: |
+      #   git fetch
+      #   git checkout ${{ github.base_ref }}
+      #   npm version minor -m "Bump version %s"
+      #   git push origin ${{ github.base_ref }}
+
+
+
+
+
 
     # - name: Conventional Changelog Action
     #   uses: TriPSs/conventional-changelog-action@v2
