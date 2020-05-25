@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+
+  build:
+
+    if: |
+      startsWith(github.event.head_commit.message, 'Bump version')
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN_ACTION }}
+
+    - name: Setup GIT
+      run: |
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git config user.name "$GITHUB_ACTOR"
+
+    - name: Get version number
+      run: |
+        export APP_VERSION=$(node app-version.js)
+        echo $APP_VERSION
