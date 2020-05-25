@@ -3,7 +3,7 @@ name: ci
 on:
   pull_request:
     branches:
-      - develop
+      - master
     types:
       - opened
     paths-ignore:
@@ -24,10 +24,10 @@ jobs:
     #   github.event.pull_request.merged == true
 
     if: |
-      contains(github.event.pull_request.base.label, 'develop')
-      &&
       contains(github.event.pull_request.title, '/bump/minor/')
 
+    # github.event.pull_request.head.label
+    # github.event.pull_request.base.label
     # &&
     # github.event.pull_request.merged == true
     # github.event.pull_request.title
@@ -59,9 +59,14 @@ jobs:
     - name: Bump Minor Version
       run: |
         git fetch
-        git checkout rr/workflow-name-release-notes
+        git checkout ${{ github.head_ref }}
         npm version minor -m "Bump version %s"
-        git push origin rr/workflow-name-release-notes
+        git push origin ${{ github.head_ref }}
+
+
+
+
+
 
     # - name: Conventional Changelog Action
     #   uses: TriPSs/conventional-changelog-action@v2
