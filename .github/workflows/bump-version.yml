@@ -85,6 +85,12 @@ jobs:
         npm version patch -m "Bump version %s"
         git push origin ${{ github.head_ref }}
 
+    - name: Push tag version
+      run: |
+        git fetch
+        git checkout ${{ github.head_ref }}
+        git push --tags
+
     - name: Get version number
       run: |
         export APP_VERSION=$(node app-version.js)
