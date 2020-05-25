@@ -1,0 +1,91 @@
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+    paths-ignore:
+      - 'package.json'
+      - 'package-lock.json'
+  # push:
+  #   branches:
+  #     - develop
+
+jobs:
+
+  build:
+
+    #
+    # if: |
+    #   github.event.action == 'labeled'
+    #   &&
+    #   contains(github.event.pull_request.base.label, 'develop')
+    #   github.event.pull_request.merged == true
+
+    if: |
+      contains(github.event.pull_request.title, '/bump/major/')
+      ||
+      contains(github.event.pull_request.title, '/bump/minor/')
+      ||
+      contains(github.event.pull_request.title, '/bump/patch/')
+
+    # github.event.pull_request.head.label
+    # github.event.pull_request.base.label
+    # &&
+    # github.event.pull_request.merged == true
+    # github.event.pull_request.title
+    # github.event.pull_request.body
+    # if: " ! contains(github.event.head_commit.message, '/skip/build/') "
+    # if: "contains(github.event.pull_request.body, 'skip ci')"
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # How to create a TOKEN_ACTION
+    # 1. Create a personal access token called GITHUB_TOKEN_ACTION with admin repo access
+    # 2. Copy generated key
+    # 3. In your repo create a secret key call TOKEN_ACTION
+    # 4. Paste the GITHUB_TOKEN_ACTION key
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN_ACTION }}
+        # token: ${{ secrets.github_token }}
+
+    # - uses: haya14busa/action-bumpr@v1
+
+    - name: Setup GIT
+      run: |
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git config user.name "$GITHUB_ACTOR"
+
+    - name: Bump Major Version
+      if: " contains(github.event.pull_request.title, '/bump/major/') "
+      run: |
+        git fetch
+        git checkout ${{ github.head_ref }}
+        npm version major -m "Bump version %s"
+        git push origin ${{ github.head_ref }}
+
+    - name: Bump Minor Version
+      if: " contains(github.event.pull_request.title, '/bump/minor/') "
+      run: |
+        git fetch
+        git checkout ${{ github.head_ref }}
+        npm version minor -m "Bump version %s"
+        git push origin ${{ github.head_ref }}
+
+    - name: Bump Patch Version
+      if: " contains(github.event.pull_request.title, '/bump/patch/') "
+      run: |
+        git fetch
+        git checkout ${{ github.head_ref }}
+        npm version patch -m "Bump version %s"
+        git push origin ${{ github.head_ref }}
+
+    - name: Get version number
+      run: |
+        export APP_VERSION=$(node app-version.js)
+        echo $APP_VERSION
