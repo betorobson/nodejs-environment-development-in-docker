@@ -7,6 +7,8 @@ on:
     paths-ignore:
       - 'package.json'
       - 'package-lock.json'
+    tags-ignore:
+      - v*.*.*
   # push:
   #   branches:
   #     - develop
@@ -51,6 +53,9 @@ jobs:
         git fetch
         git checkout rr/workflow-name-release-notes
         npm version minor -m "Bump version %s"
+        export APP_VERSION=$(node app-version.js)
+        git tag $APP_VERSION
+        git push origin --tags
         git push origin rr/workflow-name-release-notes
 
     # - name: Conventional Changelog Action
