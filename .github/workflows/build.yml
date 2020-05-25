@@ -7,9 +7,10 @@ on: [pull_request]
   # push:
   #   branches:
   #     - develop
-    paths-ignore:
-      - 'package.json'
-      - 'package-lock.json'
+  #   paths-ignore:
+  #     - 'package.json'
+  #     - 'package-lock.json'
+
 jobs:
 
   build:
