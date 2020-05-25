@@ -2,8 +2,6 @@ name: ci
 
 on:
   pull_request:
-    types:
-      - created
     branches:
       - develop
   # push:
