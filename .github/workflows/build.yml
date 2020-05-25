@@ -4,9 +4,9 @@ on:
   pull_request:
     branches:
       - develop
-    paths-ignore:
-      - 'package.json'
-      - 'package-lock.json'
+    # paths-ignore:
+    #   - 'package.json'
+    #   - 'package-lock.json'
   # push:
   #   branches:
   #     - develop
@@ -23,9 +23,12 @@ jobs:
     if: |
       contains(github.event.pull_request.base.label, 'develop')
       &&
-      ! startsWith(github.event.head_commit.message, 'Bump version')
+      ! contains(github.event.pull_request.body, 'Bump version')
 
+    # github.event.pull_request.body
     # if: " ! contains(github.event.head_commit.message, '/skip/build/') "
+    # if: "contains(github.event.pull_request.body, 'skip ci')"
+
 
     runs-on: ubuntu-latest
 
