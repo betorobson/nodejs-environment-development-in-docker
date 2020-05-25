@@ -34,20 +34,22 @@ jobs:
     # 3. In your repo create a secret key call TOKEN_ACTION
     # 4. Paste the GITHUB_TOKEN_ACTION key
     - uses: actions/checkout@v2
-    - uses: haya14busa/action-bumpr@v1
-      # with:
-      #   token: ${{ secrets.github_token }}
+      with:
+        token: ${{ secrets.TOKEN_ACTION }}
+        # token: ${{ secrets.github_token }}
 
-    # - name: Setup GIT
-    #   run: |
-    #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-    #     git config user.name "$GITHUB_ACTOR"
+    # - uses: haya14busa/action-bumpr@v1
 
-    # - name: Bump Minor Version
-    #   run: |
-    #     echo $(git branch)
-    #     npm version minor -m "Bump version %s"
-    #     git push
+    - name: Setup GIT
+      run: |
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git config user.name "$GITHUB_ACTOR"
+
+    - name: Bump Minor Version
+      run: |
+        echo $(git branch)
+        npm version minor -m "Bump version %s"
+        git push
 
     # - name: Conventional Changelog Action
     #   uses: TriPSs/conventional-changelog-action@v2
