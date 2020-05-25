@@ -1,17 +1,39 @@
-name: develop
+name: ci
 
 on:
-  push:
+  pull_request:
     branches:
-      - master
+      - develop
+    types:
+      - opened
     paths-ignore:
       - 'package.json'
       - 'package-lock.json'
+  # push:
+  #   branches:
+  #     - develop
+
 jobs:
 
   build:
 
+    # if: |
+    #   github.event.action == 'labeled'
+    #   &&
+    #   contains(github.event.pull_request.base.label, 'develop')
+    #   github.event.pull_request.merged == true
+
+    if: |
+      contains(github.event.pull_request.base.label, 'develop')
+      &&
+      contains(github.event.pull_request.title, '/bump/minor/')
+
+    # &&
+    # github.event.pull_request.merged == true
+    # github.event.pull_request.title
+    # github.event.pull_request.body
     # if: " ! contains(github.event.head_commit.message, '/skip/build/') "
+    # if: "contains(github.event.pull_request.body, 'skip ci')"
 
     runs-on: ubuntu-latest
 
@@ -25,38 +47,56 @@ jobs:
     - uses: actions/checkout@v2
       with:
         token: ${{ secrets.TOKEN_ACTION }}
+        # token: ${{ secrets.github_token }}
+
+    # - uses: haya14busa/action-bumpr@v1
 
     - name: Setup GIT
       run: |
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
         git config user.name "$GITHUB_ACTOR"
 
-    - id: log
-      run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
-
-    - name: Bump Major Version
-      if: " ! contains(steps.log.outputs.message, '/skip/build/') && contains(steps.log.outputs.message, '/bump/major/') "
-      env:
-        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
-      run: |
-        npm version major -m "Bump version %s"
-        git push
-
     - name: Bump Minor Version
-      if: " ! contains(steps.log.outputs.message, '/skip/build/') && ! contains(steps.log.outputs.message, '/bump/major/') && ! contains(steps.log.outputs.message, '/bump/patch/') "
-      env:
-        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
       run: |
+        git fetch
+        git checkout rr/workflow-name-release-notes
         npm version minor -m "Bump version %s"
-        git push
+        git push origin rr/workflow-name-release-notes
 
-    - name: Bump Patch Version
-      if: " ! contains(steps.log.outputs.message, '/skip/build/') && contains(steps.log.outputs.message, '/bump/patch/') "
-      env:
-        GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
-      run: |
-        npm version patch -m "Bump version %s"
-        git push
+    # - name: Conventional Changelog Action
+    #   uses: TriPSs/conventional-changelog-action@v2
+    #   with:
+    #     github-token: ${{ secrets.github_token }}
+    #     git-message: 'chore(release): {version}'
+
+    # - id: log
+    #   run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+
+    # - name: Bump Major Version
+    #   if: " ! contains(steps.log.outputs.message, '/skip/build/') && contains(steps.log.outputs.message, '/bump/major/') "
+    #   env:
+    #     GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
+    #   run: |
+    #     npm version major -m "Bump version %s"
+    #     git push
+
+    # - name: Bump Minor Version
+    #   if: " ! contains(steps.log.outputs.message, '/skip/build/') && ! contains(steps.log.outputs.message, '/bump/major/') && ! contains(steps.log.outputs.message, '/bump/patch/') "
+    #   env:
+    #     GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
+    #   run: |
+    #     echo $(git branch)
+    #     git checkout rr/workflow-name-release-notes
+    #     npm version minor -m "Bump version %s"
+    #     git push
+
+    # - name: Bump Patch Version
+    #   if: " ! contains(steps.log.outputs.message, '/skip/build/') && contains(steps.log.outputs.message, '/bump/patch/') "
+    #   env:
+    #     GITHUB_TOKEN: ${{secrets.TOKEN_ACTION}}
+    #   run: |
+    #     npm version patch -m "Bump version %s"
+    #     git push
 
     - name: Get version number
       run: |
