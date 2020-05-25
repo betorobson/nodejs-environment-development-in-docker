@@ -33,6 +33,11 @@ jobs:
       with:
         token: ${{ secrets.github_token }}
 
+    - name: Setup GIT
+      run: |
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git config user.name "$GITHUB_ACTOR"
+
     - name: Bump Minor Version
       run: |
         echo $(git branch)
@@ -44,11 +49,6 @@ jobs:
     #   with:
     #     github-token: ${{ secrets.github_token }}
     #     git-message: 'chore(release): {version}'
-
-    # - name: Setup GIT
-    #   run: |
-    #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-    #     git config user.name "$GITHUB_ACTOR"
 
     # - id: log
     #   run: echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
