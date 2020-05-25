@@ -59,9 +59,9 @@ jobs:
     - name: Bump Minor Version
       run: |
         git fetch
-        git checkout ${{ github.event.pull_request.base.label }}
+        git checkout ${{ github.base_ref }}
         npm version minor -m "Bump version %s"
-        git push origin ${{ github.event.pull_request.base.label }}
+        git push origin ${{ github.base_ref }}
 
     # - name: Conventional Changelog Action
     #   uses: TriPSs/conventional-changelog-action@v2
