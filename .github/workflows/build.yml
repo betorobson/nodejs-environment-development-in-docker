@@ -9,9 +9,9 @@ on:
   # push:
   #   branches:
   #     - develop
-    paths-ignore:
-      - 'package.json'
-      - 'package-lock.json'
+    # paths-ignore:
+    #   - 'package.json'
+    #   - 'package-lock.json'
 
 jobs:
 
