@@ -7,8 +7,6 @@ on:
     paths-ignore:
       - 'package.json'
       - 'package-lock.json'
-    tags-ignore:
-      - v*.*.*
   # push:
   #   branches:
   #     - develop
@@ -24,6 +22,8 @@ jobs:
 
     if: |
       contains(github.event.pull_request.base.label, 'develop')
+      &&
+      ! startsWith(github.event.head_commit.message, 'Bump version')
 
     # if: " ! contains(github.event.head_commit.message, '/skip/build/') "
 
