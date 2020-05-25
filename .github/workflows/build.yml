@@ -50,9 +50,10 @@ jobs:
 
     - name: Bump Minor Version
       run: |
-        echo $(git branch)
+        git fecth
+        git checkout origin rr/workflow-name-release-notes
         npm version minor -m "Bump version %s"
-        git push origin HEAD:rr/workflow-name-release-notes
+        git push origin rr/workflow-name-release-notes
 
     # - name: Conventional Changelog Action
     #   uses: TriPSs/conventional-changelog-action@v2
