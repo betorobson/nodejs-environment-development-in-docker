@@ -31,7 +31,7 @@ jobs:
     # 4. Paste the GITHUB_TOKEN_ACTION key
     - uses: actions/checkout@v2
       with:
-        token: ${{ secrets.TOKEN_ACTION }}
+        token: ${{ secrets.github_token }}
 
     - name: Conventional Changelog Action
       uses: TriPSs/conventional-changelog-action@v2
