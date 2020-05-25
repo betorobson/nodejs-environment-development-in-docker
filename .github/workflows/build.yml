@@ -1,7 +1,9 @@
 name: ci
 
-on: [pull_request]
-  # pull_request:
+on:
+  pull_request:
+    types:
+      - labeled
   #   branches:
   #     - develop
   # push:
@@ -16,6 +18,8 @@ jobs:
   build:
 
     if: |
+      github.event.action == 'labeled'
+      &&
       contains(github.event.pull_request.base.label, 'develop')
 
     # if: " ! contains(github.event.head_commit.message, '/skip/build/') "
@@ -30,19 +34,20 @@ jobs:
     # 3. In your repo create a secret key call TOKEN_ACTION
     # 4. Paste the GITHUB_TOKEN_ACTION key
     - uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.github_token }}
+    - uses: haya14busa/action-bumpr@v1
+      # with:
+      #   token: ${{ secrets.github_token }}
 
-    - name: Setup GIT
-      run: |
-        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-        git config user.name "$GITHUB_ACTOR"
+    # - name: Setup GIT
+    #   run: |
+    #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+    #     git config user.name "$GITHUB_ACTOR"
 
-    - name: Bump Minor Version
-      run: |
-        echo $(git branch)
-        npm version minor -m "Bump version %s"
-        git push
+    # - name: Bump Minor Version
+    #   run: |
+    #     echo $(git branch)
+    #     npm version minor -m "Bump version %s"
+    #     git push
 
     # - name: Conventional Changelog Action
     #   uses: TriPSs/conventional-changelog-action@v2
