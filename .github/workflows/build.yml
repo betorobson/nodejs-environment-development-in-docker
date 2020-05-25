@@ -4,9 +4,11 @@ on:
   pull_request:
     branches:
       - develop
-    # paths-ignore:
-    #   - 'package.json'
-    #   - 'package-lock.json'
+    types:
+      - closed
+    paths-ignore:
+      - 'package.json'
+      - 'package-lock.json'
   # push:
   #   branches:
   #     - develop
@@ -19,16 +21,19 @@ jobs:
     #   github.event.action == 'labeled'
     #   &&
     #   contains(github.event.pull_request.base.label, 'develop')
+    #   github.event.pull_request.merged == true
 
     if: |
       contains(github.event.pull_request.base.label, 'develop')
       &&
-      ! contains(github.event.pull_request.body, 'Bump version')
+      contains(github.event.pull_request.title, '/bump/minor/')
+      &&
+      github.event.pull_request.merged == true
 
+    # github.event.pull_request.title
     # github.event.pull_request.body
     # if: " ! contains(github.event.head_commit.message, '/skip/build/') "
     # if: "contains(github.event.pull_request.body, 'skip ci')"
-
 
     runs-on: ubuntu-latest
 
