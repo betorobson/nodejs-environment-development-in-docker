@@ -1,5 +1,7 @@
 # nodejs-environment-development-in-docker
 
+![ci](https://github.com/betorobson/nodejs-environment-development-in-docker/workflows/ci/badge.svg?branch=master)
+
 ## Why do you need it?
 Enforce everyone working in the same development environment, preventing any mistake of env config.
 
