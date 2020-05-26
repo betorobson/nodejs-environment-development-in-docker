@@ -1,4 +1,4 @@
-name: ci
+name: ci-build-master
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  build:
+  build-master:
 
     if: |
       !contains(github.event.head_commit.message, '/skip/build/')
