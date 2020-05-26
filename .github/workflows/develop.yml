@@ -2,8 +2,10 @@ name: ci-build-develop
 
 on:
   push:
+    branches-ignore: 
+      - master
     tags-ignore:
-      - v*.*.*           # Push events to tags v1.0, v1.1, and v1.9
+      - v*.*.*
 
 jobs:
 
