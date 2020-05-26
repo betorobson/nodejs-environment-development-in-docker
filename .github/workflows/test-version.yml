@@ -10,16 +10,13 @@ jobs:
 
   test-version:
 
-    if: |
-      contains(github.event.pull_request.title, '/bump/major/')
-      ||
-      contains(github.event.pull_request.title, '/bump/minor/')
-      ||
-      contains(github.event.pull_request.title, '/bump/patch/')
-
     runs-on: ubuntu-latest
 
     steps:
+
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.TOKEN_ACTION }}
 
     - name: Test Version
       run: |
