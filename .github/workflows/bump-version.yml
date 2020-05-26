@@ -15,7 +15,7 @@ on:
 
 jobs:
 
-  build:
+  bump-version:
 
     #
     # if: |
