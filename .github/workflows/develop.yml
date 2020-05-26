@@ -2,18 +2,14 @@ name: ci-build-develop
 
 on:
   push:
-    branches-ignore: 
-      - master
-    tags-ignore:
-      - v*.*.*
+    branches:
+      - develop
 
 jobs:
 
   build-develop:
 
     if: |
-      github.ref == 'develop'
-      &&
       !contains(github.event.head_commit.message, '/skip/build/')
 
     runs-on: ubuntu-latest
