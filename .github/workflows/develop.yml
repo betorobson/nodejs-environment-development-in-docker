@@ -29,9 +29,9 @@ jobs:
         export APP_VERSION=$(node app-version.js)
         echo $APP_VERSION
 
-    - name: Test
-      run: |
-        npm test
+    # - name: Test
+    #   run: |
+    #     npm test
 
     # - name: Login to Amazon ECR
     #   id: login-ecr
