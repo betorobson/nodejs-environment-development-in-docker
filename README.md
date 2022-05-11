@@ -3,7 +3,7 @@
 ![ci](https://github.com/betorobson/nodejs-environment-development-in-docker/workflows/ci/badge.svg?branch=master)
 
 ## Why do you need it?
-Enforce everyone working in the same development environment, preventing any mistake of env config.
+Enforce everyone to work having the same environment at local machine, preventing any mistake of env config.
 
 ## What do you need?
  - Docker, for sure
