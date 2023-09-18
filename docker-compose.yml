@@ -12,16 +12,16 @@ services:
       - 5850:5850
     command: npm run container:dev
 
-  app2slow:
-    image: nodejs-env-dev-in-docker-app2slow
-    build: .
-    # volumes:
-    #   - .:/usr/src/app
-    #   - app2slow_node_modules:/usr/src/app/node_modules
-    ports:
-      - 3002:3002
-    command: node index2.js
+  # app2slow:
+  #   image: nodejs-env-dev-in-docker-app2slow
+  #   build: .
+  #   # volumes:
+  #   #   - .:/usr/src/app
+  #   #   - app2slow_node_modules:/usr/src/app/node_modules
+  #   ports:
+  #     - 3002:3002
+  #   command: node index2.js
 
 volumes:
   node_modules:
-  app2slow_node_modules:
+  # app2slow_node_modules:
