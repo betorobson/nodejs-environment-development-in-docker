@@ -6,10 +6,10 @@
 	"engines": {
 		"node": ">=18.17.1"
 	},
-	"main": "index.js",
 	"scripts": {
-		"start": "node ./index.js",
-		"dev": "./node_modules/.bin/nodemon --inspect=0.0.0.0:5850 ./index.js",
+		"start": "npm run build && node build/index.js",
+		"build": "rimraf ./build && tsc",
+		"dev": "./node_modules/.bin/nodemon --inspect=0.0.0.0:5850",
 		"container": "docker-compose up --build --force-recreate",
 		"container:dev": "npm prune && npm install && npm run dev",
 		"test": "node test.js"
@@ -17,14 +17,19 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"nodemon": "^2.0.2",
-		"pino-pretty": "^4.0.0",
+		"@types/express": "^4.17.17",
+		"@types/json-schema": "^7.0.13",
+		"@types/pino-http": "^5.8.1",
+		"nodemon": "^2.0.22",
+		"pino": "^8.15.1",
+		"pino-http": "^8.5.0",
+		"rimraf": "^5.0.1",
+		"ts-node": "^10.9.1",
 		"typescript": "^5.2.2"
 	},
 	"dependencies": {
 		"axios": "^1.5.0",
-		"express": "^4.17.1",
-		"pino-http": "^5.1.0",
+		"express": "^4.18.2",
 		"uuid": "^7.0.2"
 	}
 }

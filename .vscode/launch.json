@@ -22,7 +22,7 @@
 			"localRoot": "${workspaceFolder}",
 			"remoteRoot": "/usr/src/app",
 			"outFiles": [
-				"${workspaceFolder}/**/*.js"
+				"${workspaceFolder}/**/*.ts"
 			],
 			"skipFiles": [
 				"<node_internals>/**/*.js",
