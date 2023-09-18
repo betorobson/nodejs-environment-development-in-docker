@@ -62,3 +62,4 @@ app.use(Router.get('/', (req, res, next) => {
     // let responseResults = results => res.json(results);
     // initAsyncTasks();
 }));
+//# sourceMappingURL=index.js.map

@@ -12,6 +12,7 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
+    "sourceMap": true
   },
   "exclude": ["node_modules", "build/**/*", "old-src-js/**/*"],
 }
