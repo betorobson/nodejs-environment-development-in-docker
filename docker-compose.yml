@@ -10,6 +10,7 @@ services:
     ports:
       - 3001:3001
       - 5850:5850
+      - 9229:9229
     command: npm run container:dev
 
   # app2slow:

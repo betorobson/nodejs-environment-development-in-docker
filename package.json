@@ -9,7 +9,7 @@
 	"scripts": {
 		"start": "npm run build && node dist/index.js",
 		"build": "rimraf ./dist && tsc",
-		"dev": "nodemon --inspect src/index.ts",
+		"dev": "nodemon --signal SIGINT --inspect=0.0.0.0:9229 --nolazy src/index.ts",
 		"container": "docker-compose up --build --force-recreate",
 		"container:dev": "npm prune && npm install && npm run dev",
 		"test": "node test.js"
@@ -25,6 +25,7 @@
 		"pino-http": "^8.5.0",
 		"rimraf": "^5.0.1",
 		"ts-node": "^10.9.1",
+		"tsconfig-paths": "^4.2.0",
 		"typescript": "^5.2.2"
 	},
 	"dependencies": {

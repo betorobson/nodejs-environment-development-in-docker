@@ -6,14 +6,27 @@
 	"configurations": [
 		{
 			"name": "My NodeJS: Attach to Docker",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/"
+			// "type": "node",
+			// "request": "attach",
+			// "port": 9229,
+			// "sourceMaps": true,
+			// "skipFiles": ["<node_internals>/**"],
+			// "localRoot": "${workspaceFolder}",
+			// "outFiles": ["${workspaceFolder}/dist"]
+		},
+		{
 			"type": "node",
 			"request": "attach",
-			"port": 9229,
-			"sourceMaps": true,
-			"skipFiles": ["<node_internals>/**"],
-			"localRoot": "${workspaceFolder}",
-			"outFiles": ["${workspaceFolder}/dist"]
-		},
+			"name": "Attach by Process ID",
+			"processId": "${command:PickProcess}",
+			"protocol": "inspector"
+		}
 		// {
 		// 	"name": "My NodeJS: Launch in Docker",
 		// 	"timeout": 10000,
