@@ -19,13 +19,6 @@
 			// "skipFiles": ["<node_internals>/**"],
 			// "localRoot": "${workspaceFolder}",
 			// "outFiles": ["${workspaceFolder}/dist"]
-		},
-		{
-			"type": "node",
-			"request": "attach",
-			"name": "Attach by Process ID",
-			"processId": "${command:PickProcess}",
-			"protocol": "inspector"
 		}
 		// {
 		// 	"name": "My NodeJS: Launch in Docker",

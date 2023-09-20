@@ -5,8 +5,9 @@ services:
     image: nodejs-env-dev-in-docker
     build: .
     volumes:
-      - .:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
+    - ./src/:/src/
+      # - ./src:/usr/src/app
+      # - node_modules:/usr/src/app/node_modules
     ports:
       - 3001:3001
       - 5850:5850
