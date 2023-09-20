@@ -5,45 +5,31 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "My NodeJS: Attach to Docker",
 			"type": "node",
 			"request": "attach",
-			"timeout": 5000,
-			"name": "My NodeJS: Attach to Docker",
-			// "preLaunchTask": "docker-compose-up",
-			// "console": "externalTerminal",
-			// "protocol": "inspector",
-			// "runtimeExecutable": "npm",
-			// "runtimeArgs": [ "run", "dev:container" ],
-			// "address": "localhost",
-			"port": 5850,
-			// "port": 9229,
-			// "cwd": "${workspaceFolder}",
-			"restart": true,
+			"port": 9229,
+			"sourceMaps": true,
+			"skipFiles": ["<node_internals>/**"],
 			"localRoot": "${workspaceFolder}",
-			"remoteRoot": "/usr/src/app",
-			"outFiles": [
-				"${workspaceFolder}/build/**/*.js"
-			],
-			"skipFiles": [
-				"<node_internals>/**/*.js",
-			]
+			"outFiles": ["${workspaceFolder}/dist"]
 		},
-		{
-			"name": "My NodeJS: Launch in Docker",
-			"timeout": 10000,
-      "type": "node",
-      "request": "launch",
-			"runtimeExecutable": "npm",
-			"runtimeArgs": [ "run", "dev" ],
-      "outFiles": ["${workspaceFolder}/build/**/*.js"]
-		},
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "My NodeJS: Launch Program",
-      "preLaunchTask": "tsc: build - tsconfig.json",
-      "program": "${workspaceFolder}/src/index.ts",
-      "outFiles":["${workspaceFolder}/build/**/*.js"]
-    }
+		// {
+		// 	"name": "My NodeJS: Launch in Docker",
+		// 	"timeout": 10000,
+    //   "type": "node",
+    //   "request": "launch",
+		// 	"runtimeExecutable": "npm",
+		// 	"runtimeArgs": [ "run", "dev" ],
+    //   "outFiles": ["${workspaceFolder}/build/**/*.js"]
+		// },
+    // {
+    //   "type": "node",
+    //   "request": "launch",
+    //   "name": "My NodeJS: Launch Program",
+    //   "preLaunchTask": "tsc: build - tsconfig.json",
+    //   "program": "${workspaceFolder}/src/index.ts",
+    //   "outFiles":["${workspaceFolder}/build/**/*.js"]
+    // }
 	]
 }

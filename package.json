@@ -7,9 +7,9 @@
 		"node": ">=18.17.1"
 	},
 	"scripts": {
-		"start": "npm run build && node build/index.js",
-		"build": "rimraf ./build && tsc",
-		"dev": "./node_modules/.bin/nodemon --inspect=0.0.0.0:5850",
+		"start": "npm run build && node dist/index.js",
+		"build": "rimraf ./dist && tsc",
+		"dev": "nodemon --inspect src/index.ts",
 		"container": "docker-compose up --build --force-recreate",
 		"container:dev": "npm prune && npm install && npm run dev",
 		"test": "node test.js"
