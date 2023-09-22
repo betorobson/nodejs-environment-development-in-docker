@@ -1,57 +1,17 @@
 {
-	// Use IntelliSense to learn about possible attributes.
-	// Hover to view descriptions of existing attributes.
-	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-	"version": "0.2.0",
-	"configurations": [
-		{
-			"type": "node",
-			"request": "attach",
-			"timeout": 5000,
-			"name": "My NodeJS: Attach to Docker",
-			// "preLaunchTask": "docker-compose-up",
-			// "console": "externalTerminal",
-			// "protocol": "inspector",
-			// "runtimeExecutable": "npm",
-			// "runtimeArgs": [ "run", "dev:container" ],
-			// "address": "localhost",
-			"port": 5850,
-			// "port": 9229,
-			// "cwd": "${workspaceFolder}",
-			"restart": true,
-			"localRoot": "${workspaceFolder}",
-			"remoteRoot": "/usr/src/app",
-			"outFiles": [
-				"${workspaceFolder}/**/*.js"
-			],
-			"skipFiles": [
-				"<node_internals>/**/*.js",
-			]
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"timeout": 30000,
-			"name": "My NodeJS: Launch in Docker",
-			"cwd": "${workspaceFolder}",
-			"console": "integratedTerminal",
-			"protocol": "inspector",
-			"runtimeExecutable": "npm",
-			"runtimeArgs": [ "run", "container" ],
-			// "address": "localhost",
-			"address": "127.0.0.1",
-			"port": 5850,
-			// "port": 9229,
-			// "cwd": "${workspaceFolder}",
-			"restart": true,
-			"localRoot": "${workspaceFolder}",
-			"remoteRoot": "/usr/src/app",
-			// "outFiles": [
-			//   "${workspaceFolder}/**/*.js"
-			// ],
-			// "skipFiles": [
-			//   "<node_internals>/**/*.js",
-			// ]
-		}
-	]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "My NodeJS: Attach to Docker",
+      "type": "node",
+      "request": "attach",
+      "port": 5850,
+      "restart": true,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/"
+    }
+  ]
 }
