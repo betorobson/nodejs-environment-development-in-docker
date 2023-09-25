@@ -49,9 +49,9 @@ jobs:
     # 2. Copy generated key
     # 3. In your repo create a secret key call TOKEN_ACTION
     # 4. Paste the GITHUB_TOKEN_ACTION key
-    - uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.TOKEN_ACTION }}
+    - uses: actions/checkout@v4
+    #   with:
+    #     token: ${{ secrets.TOKEN_ACTION }}
         # token: ${{ secrets.github_token }}
 
     # - uses: haya14busa/action-bumpr@v1
