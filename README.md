@@ -35,4 +35,4 @@ $ docker-compose up
 ## Skipping bild workflow commit message must contain:
  - [/skip/build/]: `message commit /skip/build/ message commit`
 
-test build 234
+test build 2345
