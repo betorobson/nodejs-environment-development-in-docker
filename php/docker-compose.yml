@@ -1,0 +1,19 @@
+version: '3'
+services:
+  phpteste1:
+    image: phpteste1
+    build: .
+    # image: node:18
+    # volumes:
+
+    #   - .:/usr/src/app
+    #   - node_modules:/usr/src/app/node_modules
+
+    ports:
+      - 3001:80
+      - 3002:8080
+
+    # command: apachectl -D FOREGROUND
+
+# volumes:
+#   node_modules:
