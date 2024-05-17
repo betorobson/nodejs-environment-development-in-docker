@@ -28,12 +28,12 @@ const startNewWorker = attrs => {
 
         worker.on('message', resolve);
         worker.on('error', error => {
-            console.log('error:', error);
-            console.log('message:', error.message);
-            console.log('stack', error.stack);
+            // console.log('error:', error);
+            // console.log('message:', error.message);
+            // console.log('stack', error.stack);
             reject({
                 message: error.message,
-                stack: error.stack?.split('\n')
+                // stack: error.stack?.split('\n')
             });
         });
         worker.on('exit', code => {
