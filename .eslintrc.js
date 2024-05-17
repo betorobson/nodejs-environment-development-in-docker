@@ -1,6 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser', // Specifies the ESLint parser
   extends: [
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
   ],
   // plugins: ['sort-destructure-keys'],
@@ -45,6 +46,7 @@ module.exports = {
     ],
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
     'prefer-destructuring': ['error'],
     'prefer-template': 'error',
     'object-shorthand': 'warn',

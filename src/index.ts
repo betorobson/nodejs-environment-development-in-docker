@@ -1,11 +1,15 @@
 import { pino } from 'pino';
 import pinoHttp from 'pino-http';
-import express from 'express';
+import express, { Response } from 'express';
+import teste from './t';
+import { methodGET } from './helpers/api-response';
+import { testeFromTS } from './helpers/teste';
+import { startNewWorker } from './helpers/workers';
+// import { Worker } from 'worker_threads';
 
 const app = express();
 
 app.listen(3001);
-
 const Router = express.Router();
 
 pino().info(`
@@ -19,66 +23,91 @@ const httpLogger = pinoHttp({ logger: pino() });
 
 app.use(httpLogger);
 
+type DefaultResponseBody<JSON_BODY = any> = Response & {
+    jsonBody?: JSON_BODY;
+}
+
+type MyPayloadBody = {
+    id: number;
+    data: any;
+}
+
+type MyResponseBody = DefaultResponseBody<{teste: string, data: any}>;
+
+app.use(methodGET);
+
 app.use(
-    Router.get(
+    Router.get<null, any, MyPayloadBody>(
         '/',
-        (request, response) => {
+        (request, response: MyResponseBody) => {
 
-            response.json({
-                message: 'Hello Typescript'
-            });
+            response.jsonBody = {
+                teste: 'Hello',
+                data: {
+                    id: 123,
+                    testeFromTS: testeFromTS(),
+                    teste: teste()
+                }
+            };
 
-            // let result = 2;
-
-            // let p1 = () => new Promise(
-            // 	(resolve, reject) => {
-            // 		if(result == 1){
-            // 			resolve('it works 1');
-            // 		}else{
-            // 			reject(new Error('it fails 1'));
-            // 		}
-            // 	}
-            // );
-
-            // let p2 = () => new Promise(
-            // 	(resolve, reject) => {
-            // 		if(result <= 2){
-            // 			resolve('it works 2');
-            // 		}else{
-            // 			reject(new Error('it fails 2'));
-            // 		}
-            // 	}
-            // );
-
-            // let promises = [p1, p2];
-
-            // let getErrorMessage = result => {
-            // 	if(result.reason){
-            // 		result.reason = result.reason.message;
-            // 	}
-            // 	return result;
-            // };
-
-            // let initAsyncTasks = () => {
-            // 	Promise.allSettled(promises.map(promise => promise()))
-            // 		.then(results => responseResults(
-            // 			// WTF? kkkkkkkkkkk
-            // 			Object.fromEntries(
-            // 				promises.map(
-            // 					(promise, index) =>
-            // 						[
-            // 							promise.name,
-            // 							getErrorMessage(results[index])
-            // 						]
-            // 					)
-            // 			)
-            // 		));
-            // };
-
-            // let responseResults = results => res.json(results);
-
-            // initAsyncTasks();
+            response.json(response.jsonBody);
 
         }
     )
 );
+
+app.use(
+    Router.get(
+        '/worker/:queryString_seconds',
+        (request, response) => {
+
+            // try {
+            //     const { queryString_seconds = 1 } = request.params;
+            //     // eslint-disable-next-line prefer-template
+            //     const worker = new Worker(__dirname + '/teste1.worker', {
+            //         execArgv: ['-r', 'ts-node/register/transpile-only'],
+            //         workerData: {
+            //             seconds: queryString_seconds,
+            //             data: {a: 445566}
+            //             // path: './worker.ts'
+            //         }
+            //     });
+
+            //     worker.on('message', result => {
+            //         response.json(result);
+            //     });
+            // }catch(error){
+            //     response.json(error);
+            // }
+
+            startNewWorker({
+                file: `${__dirname}/teste1.worker`,
+                data: {
+                    seconds: request.params.queryString_seconds,
+                }
+            }).then(result => {
+                response.json({
+                    workerResult: result
+                });
+            }).catch(error => {
+                response.json({
+                    message: 'worker error',
+                    error
+                });
+            });
+
+        }
+    )
+);
+
+// eslint-disable-next-line prefer-template
+// const worker = new Worker(__dirname + '/teste1.worker', {
+//     execArgv: ['-r', 'ts-node/register/transpile-only'],
+//     workerData: {
+//         content: {b: 554433}
+//     }
+// });
+
+// worker.on('message', result => {
+//     console.log(result);
+// });
