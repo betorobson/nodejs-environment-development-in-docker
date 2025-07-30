@@ -1,7 +1,7 @@
 import { pino } from 'pino';
 import pinoHttp from 'pino-http';
 import express, { Response } from 'express';
-import teste from './t';
+import teste from './from-javascript';
 import { methodGET } from './helpers/api-response';
 import { testeFromTS } from './helpers/teste';
 import { startNewWorker } from './helpers/workers';
@@ -45,7 +45,7 @@ app.use(
                 teste: 'Hello',
                 data: {
                     id: 123,
-                    testeFromTS: testeFromTS(),
+                    testeFromTS: testeFromTS('x'),
                     teste: teste()
                 }
             };

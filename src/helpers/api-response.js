@@ -1,27 +1,28 @@
 const express = require('express');
 const { testeFromTS } = require('./teste');
 
-const router = express.Router();
+// const router = express.Router();
 const methodGET = express();
 
-methodGET.use(
+// methodGET.use(
 
-    router.get(
-        '/helper',
-        [
+//     router.get(
+//         '/helper',
+//         [
 
-            // (req, res, next) => apiResponse.success(res)
-            (req, res) => res.json({helper: 1, fromTS: testeFromTS()})
+//             // (req, res, next) => apiResponse.success(res)
+//             (req, res) => res.json({helper: 1, fromTS: testeFromTS('x')})
 
-        ]
-    )
+//         ]
+//     )
 
-);
+// );
 
 
 const success = () => {
     return {
-        success: 'done!'
+        success: 'done!',
+        stringFromTypescript: testeFromTS('x')
     };
 };
 
