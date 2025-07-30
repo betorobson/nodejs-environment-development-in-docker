@@ -11,7 +11,8 @@ const getWorker = attrs => {
     const worker = new Worker(
         attrs.file,
         {
-            execArgv: ['-r', 'ts-node/register/transpile-only'],
+            // execArgv: ['-r', 'ts-node/register/transpile-only'],
+            execArgv: ['-r', 'ts-node/register'],
             workerData: attrs.data || {}
         }
     );
