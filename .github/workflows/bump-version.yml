@@ -25,11 +25,11 @@ jobs:
     #   github.event.pull_request.merged == true
 
     if: |
-      contains(github.event.pull_request.title, '/bump/major/')
+      contains(github.event.pull_request.labels.*.name, 'bump-major')
       ||
-      contains(github.event.pull_request.title, '/bump/minor/')
+      contains(github.event.pull_request.labels.*.name, 'bump-minor')
       ||
-      contains(github.event.pull_request.title, '/bump/patch/')
+      contains(github.event.pull_request.labels.*.name, 'bump-patch')
 
     # github.event.pull_request.head.label
     # github.event.pull_request.base.label
@@ -62,7 +62,7 @@ jobs:
         git config user.name "$GITHUB_ACTOR"
 
     - name: Bump Major Version
-      if: " contains(github.event.pull_request.title, '/bump/major/') "
+      if: contains(github.event.pull_request.labels.*.name, 'bump-major')
       run: |
         git fetch
         git checkout ${{ github.head_ref }}
@@ -70,7 +70,7 @@ jobs:
         git push origin ${{ github.head_ref }}
 
     - name: Bump Minor Version
-      if: " contains(github.event.pull_request.title, '/bump/minor/') "
+      if: contains(github.event.pull_request.labels.*.name, 'bump-minor')
       run: |
         git fetch
         git checkout ${{ github.head_ref }}
@@ -78,7 +78,7 @@ jobs:
         git push origin ${{ github.head_ref }}
 
     - name: Bump Patch Version
-      if: " contains(github.event.pull_request.title, '/bump/patch/') "
+      if: contains(github.event.pull_request.labels.*.name, 'bump-patch')
       run: |
         git fetch
         git checkout ${{ github.head_ref }}
