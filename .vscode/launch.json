@@ -11,7 +11,8 @@
       "port": 5850,
       "restart": true,
       "localRoot": "${workspaceFolder}",
-      "remoteRoot": "/"
+      "remoteRoot": "/",
+      "sourceMaps": true
     }
   ]
 }
