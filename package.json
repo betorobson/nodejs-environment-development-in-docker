@@ -12,7 +12,7 @@
 		"dev": "ts-node-dev --inspect=0.0.0.0:5850 --respawn src/index.ts",
 		"devnodemon": "nodemon --signal SIGINT --inspect=0.0.0.0:5850 --nolazy src/index.ts",
 		"container": "docker-compose up --build --force-recreate",
-		"container:dev": "npm prune && npm install && npm run dev",
+		"container:dev": "npm prune && npm install && npm run devnodemon",
 		"test": "node test.js"
 	},
 	"author": "",
