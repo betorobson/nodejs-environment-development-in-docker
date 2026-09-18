@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "lib": ["es6"],
-    "module": "commonjs",
     "resolveJsonModule": true,
     "allowJs": true,
     "checkJs": true,
@@ -14,6 +11,11 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "sourceMap": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+    "types": ["node"]
   },
   "include": [
     "src/**/*.ts"
