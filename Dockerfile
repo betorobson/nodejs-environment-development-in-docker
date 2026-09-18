@@ -1,6 +1,6 @@
 FROM node:24-alpine
 
-# WORKDIR /usr/src/app
+WORKDIR /app
 
 ADD package*.json ./
 RUN npm install

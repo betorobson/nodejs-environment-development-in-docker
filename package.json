@@ -9,10 +9,10 @@
 	"scripts": {
 		"start": "npm run build && node dist/index.js",
 		"build": "rimraf ./dist && tsc",
-		"dev": "ts-node-dev --inspect=0.0.0.0:5850 --respawn src/index.ts",
+			"dev": "ts-node-dev --poll --inspect=0.0.0.0:5850 --respawn src/index.ts",
 		"devnodemon": "nodemon --signal SIGINT --inspect=0.0.0.0:5850 --nolazy src/index.ts",
 		"container": "docker-compose up --build --force-recreate",
-		"container:dev": "npm prune && npm install && npm run devnodemon",
+		"container:dev": "npm prune && npm install && npm run dev",
 		"test": "node test.js"
 	},
 	"author": "",
